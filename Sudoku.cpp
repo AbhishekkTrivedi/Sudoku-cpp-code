@@ -3,11 +3,13 @@
 using namespace std;
 
 bool isSafe(int mat[][9],int i, int j,int no ){
+    //check for row and column
     for (int k=0;k<9;k++){
         if (mat[k][j]==no || mat[i][k]==no){
             return false;
         }
     }
+    //check for subgrid
     int sx = (i/3)*3;
     int sy = (j/3)*3;
 
@@ -22,7 +24,9 @@ bool isSafe(int mat[][9],int i, int j,int no ){
 }
 
 bool solveSudoku(int mat[][9],int i, int j, int n){
+    //base case
 if (i==n){
+    //print the solution
     for (int i=0;i<9;i++){
         for(int j=0;j<9; j++){
             cout<<mat[i][j]<< " ";
@@ -31,14 +35,18 @@ if (i==n){
     }
     return true;
 }
-
+// recursive case
 if (j==n){
     return solveSudoku(mat,i+1,0,n);
 }
+//skip the prefilled cell
 if (mat[i][j] !=0){
     return solveSudoku(mat,i,j+1,n);
 }
+//cell to be filled
+//try out all possibilities
 for (int no=1;no<=n;no++){
+    //weather it is safe to plce number or not
     if (isSafe(mat,i,j,no)){
         mat[i][j] = no;
         bool solveSubproblem = solveSudoku (mat,i,j+1,n);
@@ -47,6 +55,7 @@ for (int no=1;no<=n;no++){
         }
     }
 }
+//if no option works
 mat[i][j] = 0;
 return false;
 }
