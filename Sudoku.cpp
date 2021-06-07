@@ -46,7 +46,7 @@ if (mat[i][j] !=0){
 //cell to be filled
 //try out all possibilities
 for (int no=1;no<=n;no++){
-    //weather it is safe to plce number or not
+    //whether it is safe to place number or not
     if (isSafe(mat,i,j,no)){
         mat[i][j] = no;
         bool solveSubproblem = solveSudoku (mat,i,j+1,n);
